@@ -62,14 +62,6 @@ export default class Login extends Component {
 								required
 							/>
 						</div>
-						{/* <p className="error" id="notFound">
-							Login Failed!
-							<br />
-							User Not Found!!
-						</p>
-						<p className="error" id="notBlank">
-							Please Enter All Details
-						</p> */}
 						<p className="error" id="incorrectPassword">
 							{this.state.status}
 						</p>
