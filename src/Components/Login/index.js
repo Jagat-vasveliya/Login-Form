@@ -22,18 +22,18 @@ export default class Login extends Component {
 						break;
 					} else {
 						this.setState ({
-							status: 'Incorrect Password'
+							status: 'Incorrect Password!!!'
 						})
 						break;
 					}
 				} else {
 					this.setState ( {
-						status: 'User Not Found'
+						status: 'User Not Found!!!'
 					})
 				}
 			} else {
 				this.setState ({
-					status: 'Not Blank'
+					status: 'Please Enter All Detail!!'
 				})
 			}
 		}
