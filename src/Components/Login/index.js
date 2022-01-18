@@ -1,41 +1,45 @@
 import React, { Component } from "react";
 import "./index.css";
 import Credential from "./credential.json";
+import Success from "../Login_success";
 
 export default class Login extends Component {
-	constructor (props){
+	constructor(props) {
 		super(props);
 		this.state = {
-			status : ''
-		}
+			status: "",
+			showComponent: false,
+			name: "",
+		};
 	}
-	validate = () => {
+	validate = (event) => {
 		var email = document.getElementById("email").value;
 		var password = document.getElementById("password").value;
-		for (let index = 0; index < Credential.length; index++) {
-			if (email != "" && password != "") {
-				if (Credential[index]["Email"] == email) {
-					if (Credential[index]["Password"] == password) {
-						document.getElementById(
-							"container"
-						).innerHTML = `<h1 className='success'>Welcome, <br /> ${Credential[index]["Name"]} </h1>`;
-						break;
-					} else {
-						this.setState ({
-							status: 'Incorrect Password!!!'
-						})
-						break;
-					}
-				} else {
-					this.setState ( {
-						status: 'User Not Found!!!'
-					})
-				}
+		const checkEmail = Credential.filter(
+			(validateEmail) => validateEmail.Email == email
+		);
+		if (checkEmail.length) {
+			const checkPassword = checkEmail.filter(
+				(ValidatePassword) => ValidatePassword.Password == password
+			);
+			if (checkPassword.length) {
+				this.setState({
+					status: "",
+					name: checkPassword.map((name) => name.Name),
+					showComponent: true,
+				});
+				event.preventDefault();
 			} else {
-				this.setState ({
-					status: 'Please Enter All Detail!!'
-				})
+				this.setState({
+					status: "Incorrect Password!!!",
+				});
 			}
+			event.preventDefault();
+		} else {
+			this.setState({
+				status: "User Not Found!!!",
+			});
+			event.preventDefault();
 		}
 	};
 	render() {
@@ -43,7 +47,7 @@ export default class Login extends Component {
 			<div>
 				<div id="container">
 					<h1 className="heading"> Login </h1>
-					<form action="#" method="get">
+					<form method="POST" onSubmit={this.validate}>
 						<div className="form-control">
 							<label htmlFor="email"> Email </label>
 							<input
@@ -67,13 +71,13 @@ export default class Login extends Component {
 						</p>
 						<div className="form-control">
 							<input
-								type="button"
-								onClick={this.validate}
+								type="submit"
 								value="Submit"
 								className="btn"
 							/>
 						</div>
 					</form>
+					{this.state.showComponent ? <Success name={this.state.name}/> : null}
 				</div>
 			</div>
 		);
