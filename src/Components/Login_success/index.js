@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 
-export default class loginSuccess extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render() {
+export default function loginSuccess(props) {
 		return (
 			<div>
 				<h1 className="success">
-					Welcome, <br /> {this.props.name}</h1>
+					Welcome, <br /> {props.name}</h1>
 			</div>
 		);
-	}
 }
